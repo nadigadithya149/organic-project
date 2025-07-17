@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Glow Naturals</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('C:/Users/Adithya/Downloads/Gemini_Generated_Image_p730uap730uap730.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .signin-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            margin: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #333;
+            margin: 0;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .header p {
+            color: #666;
+            margin: 10px 0 0 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .password-toggle:hover {
+            color: #333;
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+
+        .forgot-link {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+
+        .signin-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .signin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .signin-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e1e5e9;
+        }
+
+        .divider span {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0 15px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .google-btn {
+            width: 100%;
+            padding: 12px;
+            background: white;
+            color: #333;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .google-btn:hover {
+            border-color: #4285f4;
+            box-shadow: 0 5px 15px rgba(66, 133, 244, 0.2);
+        }
+
+        .google-icon {
+            width: 18px;
+            height: 18px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="%23FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/><path fill="%23FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="%234CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="%231976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg>') no-repeat center;
+            background-size: contain;
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .links a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: 500;
+            margin: 0 10px;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+            display: none;
+            border: 1px solid #ffcdd2;
+        }
+
+        .success-message {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+            display: none;
+            border: 1px solid #c8e6c9;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .attempts-warning {
+            background: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+            display: none;
+            border: 1px solid #ffeaa7;
+        }
+
+        @media (max-width: 600px) {
+            .signin-container {
+                margin: 10px;
+                padding: 30px 20px;
+            }
+            
+            .remember-forgot {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="signin-container">
+        <div class="header">
+            <h1>Welcome Back</h1>
+            <p>Sign in to your Glow Naturals account</p>
+        </div>
+
+        <div class="error-message" id="errorMessage">
+            Incorrect email/phone or password. Please try again.
+        </div>
+
+        <div class="success-message" id="successMessage">
+            Sign in successful! Redirecting...
+        </div>
+
+        <div class="attempts-warning" id="attemptsWarning">
+            Too many failed attempts. Please try again in <span id="countdown">5</span> minutes.
+        </div>
+
+        <form id="signinForm">
+            <div class="form-group">
+                <label for="emailOrPhone">Email ID or Phone Number</label>
+                <input type="text" id="emailOrPhone" name="emailOrPhone" placeholder="Enter your email or phone number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <button type="button" class="password-toggle" onclick="togglePassword()">👁️</button>
+                </div>
+            </div>
+
+            <div class="remember-forgot">
+                <label class="remember-me">
+                    <input type="checkbox" id="rememberMe" name="rememberMe">
+                    Remember me
+                </label>
+                <a href="#" class="forgot-link" onclick="forgotPassword()">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="signin-btn" id="signinBtn">
+                <span class="btn-text">Sign In</span>
+            </button>
+        </form>
+
+        <div class="divider">
+            <span>OR</span>
+        </div>
+
+        <button type="button" class="google-btn" onclick="signInWithGoogle()">
+            <div class="google-icon"></div>
+            Sign in with Google
+        </button>
+
+        <div class="links">
+            <a href="register.html">Create Account</a>
+            <br><br>
+            <a href="index.html">← Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        // API Configuration
+        const API_BASE_URL = 'http://localhost:5000/api';
+        let loginAttempts = 0;
+        let lockoutTime = null;
+
+        // Load saved credentials if "Remember me" was checked
+        window.addEventListener('load', function() {
+            const savedCredentials = localStorage.getItem('savedCredentials');
+            if (savedCredentials) {
+                const credentials = JSON.parse(savedCredentials);
+                document.getElementById('emailOrPhone').value = credentials.emailOrPhone || '';
+                document.getElementById('password').value = credentials.password || '';
+                document.getElementById('rememberMe').checked = true;
+            }
+
+            // Check if user is already logged in
+            const token = localStorage.getItem('token');
+            if (token) {
+                // Verify token with backend
+                verifyToken(token);
+            }
+        });
+
+        // Verify JWT token with backend
+        async function verifyToken(token) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/me`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    showSuccess('You are already logged in! Redirecting...');
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 2000);
+                } else {
+                    // Token is invalid, remove it
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('userInfo');
+                }
+            } catch (error) {
+                console.error('Token verification error:', error);
+                localStorage.removeItem('token');
+                localStorage.removeItem('userInfo');
+            }
+        }
+
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function validatePhone(phone) {
+            const phoneRegex = /^\d{10,15}$/;
+            return phoneRegex.test(phone.replace(/\D/g, ''));
+        }
+
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleBtn = document.querySelector('.password-toggle');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleBtn.textContent = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                toggleBtn.textContent = '👁️';
+            }
+        }
+
+        function signInWithGoogle() {
+            // Redirect to Google OAuth endpoint
+            window.location.href = `${API_BASE_URL}/auth/google`;
+        }
+
+        async function forgotPassword() {
+            const emailOrPhone = document.getElementById('emailOrPhone').value.trim();
+            if (!emailOrPhone) {
+                showError('Please enter your email or phone number first');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/forgot-password`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: emailOrPhone
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showSuccess('Password reset link sent! Check your email.');
+                } else {
+                    showError(data.message || 'Failed to send password reset email');
+                }
+            } catch (error) {
+                console.error('Forgot password error:', error);
+                showError('Failed to send password reset email. Please try again.');
+            }
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            const successDiv = document.getElementById('successMessage');
+            const attemptsDiv = document.getElementById('attemptsWarning');
+            
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            successDiv.style.display = 'none';
+            attemptsDiv.style.display = 'none';
+        }
+
+        function showSuccess(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            const successDiv = document.getElementById('successMessage');
+            const attemptsDiv = document.getElementById('attemptsWarning');
+            
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+            errorDiv.style.display = 'none';
+            attemptsDiv.style.display = 'none';
+        }
+
+        function showAttemptsWarning() {
+            const errorDiv = document.getElementById('errorMessage');
+            const successDiv = document.getElementById('successMessage');
+            const attemptsDiv = document.getElementById('attemptsWarning');
+            
+            attemptsDiv.style.display = 'block';
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+            
+            let countdown = 5;
+            const countdownElement = document.getElementById('countdown');
+            
+            const timer = setInterval(() => {
+                countdown--;
+                countdownElement.textContent = countdown;
+                
+                if (countdown <= 0) {
+                    clearInterval(timer);
+                    attemptsDiv.style.display = 'none';
+                    loginAttempts = 0;
+                    lockoutTime = null;
+                }
+            }, 60000); // 1 minute intervals
+        }
+
+        function hideMessages() {
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('attemptsWarning').style.display = 'none';
+        }
+
+        function updateUserLoginInfo(user) {
+            user.lastLogin = new Date().toISOString();
+            user.failedAttempts = 0;
+            user.lockedUntil = null;
+        }
+
+        document.getElementById('signinForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const emailOrPhone = document.getElementById('emailOrPhone').value.trim();
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            const signinBtn = document.getElementById('signinBtn');
+            const btnText = signinBtn.querySelector('.btn-text');
+            
+            // Check if account is locked
+            if (lockoutTime && new Date() < lockoutTime) {
+                showAttemptsWarning();
+                return;
+            }
+            
+            // Disable button during processing
+            signinBtn.disabled = true;
+            btnText.innerHTML = '<span class="loading-spinner"></span>Signing In...';
+            
+            // Hide previous messages
+            hideMessages();
+            
+            // Validate input
+            if (!emailOrPhone || !password) {
+                showError('Please fill in all fields');
+                signinBtn.disabled = false;
+                btnText.textContent = 'Sign In';
+                return;
+            }
+            
+            // Check if input is email or phone
+            const isEmail = validateEmail(emailOrPhone);
+            const isPhone = validatePhone(emailOrPhone);
+            
+            if (!isEmail && !isPhone) {
+                showError('Please enter a valid email address or phone number');
+                signinBtn.disabled = false;
+                btnText.textContent = 'Sign In';
+                return;
+            }
+            
+            // Call backend API for authentication
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        emailOrPhone: emailOrPhone,
+                        password: password
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Reset failed attempts on successful login
+                    loginAttempts = 0;
+                    lockoutTime = null;
+                    
+                    // Save token and user info
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('userInfo', JSON.stringify(data.user));
+                    
+                    // Save credentials if "Remember me" is checked
+                    if (rememberMe) {
+                        const credentials = {
+                            emailOrPhone: emailOrPhone,
+                            password: password
+                        };
+                        localStorage.setItem('savedCredentials', JSON.stringify(credentials));
+                    } else {
+                        localStorage.removeItem('savedCredentials');
+                    }
+                    
+                    showSuccess('Sign in successful! Redirecting...');
+                    // Redirect to home page after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 2000);
+                } else {
+                    if (response.status === 423) {
+                        // Account locked
+                        showAttemptsWarning();
+                    } else {
+                        loginAttempts++;
+                        
+                        if (loginAttempts >= 3) {
+                            lockoutTime = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes
+                            showAttemptsWarning();
+                        } else {
+                            showError(data.message || `Incorrect email/phone or password. ${3 - loginAttempts} attempts remaining.`);
+                        }
+                    }
+                    
+                    signinBtn.disabled = false;
+                    btnText.textContent = 'Sign In';
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showError('Network error. Please check your connection and try again.');
+                signinBtn.disabled = false;
+                btnText.textContent = 'Sign In';
+            }
+        });
+
+        // Clear messages when user starts typing
+        document.getElementById('emailOrPhone').addEventListener('input', hideMessages);
+        document.getElementById('password').addEventListener('input', hideMessages);
+    </script>
+</body>
+</html> 

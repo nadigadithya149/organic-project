@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glow Naturals</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-image: url('C:/Users/Adithya/OneDrive/Documents/glow naturals/materials/Your paragraph text.png');
+            background-size: cover;
+            background-position: center bottom;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+        }
+        
+        nav {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .nav-btn {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            border-radius: 5px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+    <script>
+        // Check if user is logged in on page load
+        window.onload = function() {
+            checkUserSession();
+        };
+
+        function checkUserSession() {
+            const userInfo = localStorage.getItem('userInfo');
+            const userInfoDiv = document.getElementById('userInfo');
+            const authButtonsDiv = document.getElementById('authButtons');
+            const userNameSpan = document.getElementById('userName');
+
+            if (userInfo) {
+                const user = JSON.parse(userInfo);
+                userNameSpan.textContent = `Welcome, ${user.firstName} ${user.lastName}`;
+                userInfoDiv.style.display = 'block';
+                authButtonsDiv.style.display = 'none';
+            } else {
+                userInfoDiv.style.display = 'none';
+                authButtonsDiv.style.display = 'block';
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('userInfo');
+            checkUserSession();
+            alert('Logged out successfully!');
+        }
+    </script>
+</head>
+<body>
+    <nav>
+        <button class="nav-btn" onclick="window.location.href='home-page.html'">Home page</button>
+        <button class="nav-btn" onclick="window.location.href='product.html'">Products</button>
+        <button class="nav-btn" onclick="window.location.href='cart.html'">Cart</button>
+        <button class="nav-btn" onclick="window.location.href='about-us.html'">About Us</button>
+        
+        <!-- User info when logged in -->
+        <div id="userInfo" style="display: none;">
+            <span id="userName" style="color: white; font-weight: bold; margin-right: 15px;"></span>
+            <button class="nav-btn" onclick="logout()">Logout</button>
+        </div>
+        
+        <!-- Auth buttons when not logged in -->
+        <div id="authButtons">
+            <button class="nav-btn" onclick="window.location.href='sign-in.html'">Sign in</button>
+            <button class="nav-btn" onclick="window.location.href='register.html'">Register</button>
+        </div>
+    </nav>
+</body>
+</html>

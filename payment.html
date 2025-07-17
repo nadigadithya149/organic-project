@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Glow Naturals</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 50%, #e8f5e8 100%);
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(76, 175, 80, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 195, 74, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(104, 159, 56, 0.05) 0%, transparent 50%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #2e7d32;
+            margin: 0;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .header p {
+            color: #666;
+            margin: 10px 0 0 0;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+
+        .section h2 {
+            color: #2e7d32;
+            margin: 0 0 20px 0;
+            font-size: 20px;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-row .form-group {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 8px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-option input[type="radio"] {
+            width: auto;
+        }
+
+        .use-registered-phone {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #e9ecef;
+        }
+
+        .use-registered-phone label {
+            margin-bottom: 10px;
+            color: #495057;
+        }
+
+        .use-registered-phone input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
+        }
+
+        .payment-methods {
+            display: grid;
+            gap: 15px;
+        }
+
+        .payment-option {
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .payment-option:hover {
+            border-color: #4CAF50;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.2);
+        }
+
+        .payment-option.selected {
+            border-color: #4CAF50;
+            background: #f1f8e9;
+        }
+
+        .payment-option h3 {
+            margin: 0 0 10px 0;
+            color: #2e7d32;
+            font-size: 16px;
+        }
+
+        .payment-option p {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .upi-qr {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .upi-qr img {
+            width: 150px;
+            height: 150px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .card-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .card-option {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #e1e5e9;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .card-option:hover {
+            border-color: #4CAF50;
+            background: #f1f8e9;
+        }
+
+        .card-option.selected {
+            border-color: #4CAF50;
+            background: #e8f5e8;
+        }
+
+        .card-option img {
+            width: 40px;
+            height: 25px;
+            object-fit: contain;
+            margin-bottom: 5px;
+        }
+
+        .card-option span {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .order-summary {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .order-summary h3 {
+            margin: 0 0 15px 0;
+            color: #2e7d32;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .total {
+            font-weight: bold;
+            font-size: 18px;
+            color: #2e7d32;
+            border-top: 2px solid #4CAF50;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .card-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Complete Your Purchase</h1>
+            <p>Secure payment powered by Razorpay</p>
+        </div>
+
+        <div class="main-content">
+            <!-- Address Section -->
+            <div class="section">
+                <h2>Delivery Address</h2>
+                <form id="addressForm">
+                    <div class="form-group">
+                        <label for="customerName">Customer Name</label>
+                        <input type="text" id="customerName" name="customerName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <select id="country" name="country" required>
+                            <option value="India">India</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <select id="state" name="state" required>
+                                <option value="">Select State</option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                <option value="Telangana">Telangana</option>
+                                <option value="Gujarat">Gujarat</option>
+                                <option value="West Bengal">West Bengal</option>
+                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                <option value="Kerala">Kerala</option>
+                                <option value="Rajasthan">Rajasthan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="district">District</label>
+                            <input type="text" id="district" name="district" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="addressLine1">Address Line 1</label>
+                        <textarea id="addressLine1" name="addressLine1" rows="3" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Address Type</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="home" name="addressType" value="home" checked>
+                                <label for="home">Home</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="office" name="addressType" value="office">
+                                <label for="office">Office</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="doorName">Door/House Name</label>
+                            <input type="text" id="doorName" name="doorName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="floorNumber">Floor Number</label>
+                            <input type="text" id="floorNumber" name="floorNumber" placeholder="e.g., 2nd Floor">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="crossMain">Cross/Main</label>
+                            <input type="text" id="crossMain" name="crossMain" placeholder="e.g., Near Main Road">
+                        </div>
+                        <div class="form-group">
+                            <label for="landmark">Landmark</label>
+                            <input type="text" id="landmark" name="landmark" placeholder="e.g., Near Hospital">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="area">Area</label>
+                            <input type="text" id="area" name="area" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" name="city" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pincode">Pincode</label>
+                        <input type="text" id="pincode" name="pincode" maxlength="6" required>
+                    </div>
+
+                    <div class="use-registered-phone">
+                        <label>
+                            <input type="checkbox" id="useRegisteredPhone">
+                            Use registered phone number
+                        </label>
+                        <div id="registeredPhoneInfo" style="display: none; margin-top: 10px; color: #666; font-size: 14px;"></div>
+                    </div>
+
+                    <div class="form-group" id="phoneInputGroup">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input type="tel" id="phoneNumber" name="phoneNumber" required>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" onclick="confirmAddress()">Confirm Address</button>
+                </form>
+            </div>
+
+            <!-- Payment Section -->
+            <div class="section">
+                <h2>Payment Method</h2>
+                
+                <div class="order-summary">
+                    <h3>Order Summary</h3>
+                    <div class="order-item">
+                        <span>Natural Glow Serum</span>
+                        <span>₹1,299</span>
+                    </div>
+                    <div class="order-item">
+                        <span>Organic Face Cream</span>
+                        <span>₹899</span>
+                    </div>
+                    <div class="order-item">
+                        <span>Delivery Charges</span>
+                        <span>₹50</span>
+                    </div>
+                    <div class="order-item total">
+                        <span>Total Amount</span>
+                        <span>₹2,248</span>
+                    </div>
+                </div>
+
+                <div class="payment-methods">
+                    <div class="payment-option" onclick="selectPayment('upi')">
+                        <h3>UPI Payment</h3>
+                        <p>Pay using PhonePe, Google Pay, Paytm, or any UPI app</p>
+                        <div class="upi-qr" id="upiQrSection" style="display: none;">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='150'><rect width='150' height='150' fill='white'/><text x='75' y='75' text-anchor='middle' dy='.3em' font-family='Arial' font-size='12' fill='black'>UPI QR Code</text><text x='75' y='95' text-anchor='middle' font-family='Arial' font-size='10' fill='gray'>glownaturals@okicici</text></svg>" alt="UPI QR Code">
+                            <p style="margin-top: 10px; font-size: 12px; color: #666;">Scan QR code or pay to: glownaturals@okicici</p>
+                        </div>
+                    </div>
+
+                    <div class="payment-option" onclick="selectPayment('debit')">
+                        <h3>Debit Card</h3>
+                        <p>Visa, MasterCard, RuPay, or any Indian debit card</p>
+                        <div class="card-options" id="debitCardOptions" style="display: none;">
+                            <div class="card-option" onclick="selectCard('visa')">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='25'><rect width='40' height='25' fill='%23005A9E'/><text x='20' y='15' text-anchor='middle' font-family='Arial' font-size='8' fill='white'>VISA</text></svg>" alt="Visa">
+                                <span>Visa</span>
+                            </div>
+                            <div class="card-option" onclick="selectCard('mastercard')">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='25'><rect width='40' height='25' fill='%23EB001B'/><text x='20' y='15' text-anchor='middle' font-family='Arial' font-size='6' fill='white'>MASTER</text></svg>" alt="MasterCard">
+                                <span>MasterCard</span>
+                            </div>
+                            <div class="card-option" onclick="selectCard('rupay')">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='25'><rect width='40' height='25' fill='%2300A0E3'/><text x='20' y='15' text-anchor='middle' font-family='Arial' font-size='8' fill='white'>RUPAY</text></svg>" alt="RuPay">
+                                <span>RuPay</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="payment-option" onclick="selectPayment('credit')">
+                        <h3>Credit Card</h3>
+                        <p>Axis Bank, HDFC Bank, SBI, or any Indian bank credit card</p>
+                        <div class="card-options" id="creditCardOptions" style="display: none;">
+                            <div class="card-option" onclick="selectCard('axis')">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='25'><rect width='40' height='25' fill='%2300A0E3'/><text x='20' y='12' text-anchor='middle' font-family='Arial' font-size='6' fill='white'>AXIS</text></svg>" alt="Axis Bank">
+                                <span>Axis Bank</span>
+                            </div>
+                            <div class="card-option" onclick="selectCard('hdfc')">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='25'><rect width='40' height='25' fill='%23FF6B35'/><text x='20' y='12' text-anchor='middle' font-family='Arial' font-size='6' fill='white'>HDFC</text></svg>" alt="HDFC Bank">
+                                <span>HDFC Bank</span>
+                            </div>
+                            <div class="card-option" onclick="selectCard('sbi')">
+                                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='25'><rect width='40' height='25' fill='%23FF6B35'/><text x='20' y='12' text-anchor='middle' font-family='Arial' font-size='6' fill='white'>SBI</text></svg>" alt="SBI">
+                                <span>SBI</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-primary" onclick="proceedToPayment()" id="paymentBtn" disabled>Proceed to Payment</button>
+                    <button class="btn btn-secondary" onclick="window.location.href='cart.html'">Back to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedPaymentMethod = '';
+        let selectedCard = '';
+        let addressConfirmed = false;
+
+        // Check authentication and load user info
+        window.onload = function() {
+            const userInfo = localStorage.getItem('userInfo');
+            
+            // Check if user is logged in
+            if (!userInfo) {
+                alert('Please sign in to proceed with payment');
+                window.location.href = 'sign-in.html';
+                return;
+            }
+            
+            // Load user info if available
+            const user = JSON.parse(userInfo);
+            document.getElementById('customerName').value = `${user.firstName} ${user.lastName}`;
+            document.getElementById('registeredPhoneInfo').textContent = `Registered phone: ${user.phone}`;
+        };
+
+        // Handle registered phone checkbox
+        document.getElementById('useRegisteredPhone').addEventListener('change', function() {
+            const phoneInputGroup = document.getElementById('phoneInputGroup');
+            const registeredPhoneInfo = document.getElementById('registeredPhoneInfo');
+            
+            if (this.checked) {
+                const userInfo = localStorage.getItem('userInfo');
+                if (userInfo) {
+                    const user = JSON.parse(userInfo);
+                    document.getElementById('phoneNumber').value = user.phone;
+                    phoneInputGroup.style.display = 'none';
+                    registeredPhoneInfo.style.display = 'block';
+                }
+            } else {
+                phoneInputGroup.style.display = 'block';
+                registeredPhoneInfo.style.display = 'none';
+                document.getElementById('phoneNumber').value = '';
+            }
+        });
+
+        function confirmAddress() {
+            const form = document.getElementById('addressForm');
+            if (form.checkValidity()) {
+                addressConfirmed = true;
+                alert('Address confirmed successfully!');
+                checkPaymentReady();
+            } else {
+                alert('Please fill in all required fields');
+            }
+        }
+
+        function selectPayment(method) {
+            selectedPaymentMethod = method;
+            
+            // Remove selected class from all options
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            event.currentTarget.classList.add('selected');
+            
+            // Show/hide specific options
+            document.getElementById('upiQrSection').style.display = method === 'upi' ? 'block' : 'none';
+            document.getElementById('debitCardOptions').style.display = method === 'debit' ? 'grid' : 'none';
+            document.getElementById('creditCardOptions').style.display = method === 'credit' ? 'grid' : 'none';
+            
+            checkPaymentReady();
+        }
+
+        function selectCard(cardType) {
+            selectedCard = cardType;
+            
+            // Remove selected class from all card options
+            document.querySelectorAll('.card-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            event.currentTarget.classList.add('selected');
+            
+            checkPaymentReady();
+        }
+
+        function checkPaymentReady() {
+            const paymentBtn = document.getElementById('paymentBtn');
+            if (addressConfirmed && selectedPaymentMethod) {
+                if (selectedPaymentMethod === 'upi' || (selectedPaymentMethod === 'debit' && selectedCard) || (selectedPaymentMethod === 'credit' && selectedCard)) {
+                    paymentBtn.disabled = false;
+                } else {
+                    paymentBtn.disabled = true;
+                }
+            } else {
+                paymentBtn.disabled = true;
+            }
+        }
+
+        function proceedToPayment() {
+            if (selectedPaymentMethod === 'upi') {
+                // For UPI, show QR code and wait for payment
+                alert('Please scan the QR code and complete the payment. You will receive a confirmation once payment is successful.');
+            } else {
+                // For cards, integrate with Razorpay
+                const options = {
+                    key: 'rzp_test_YOUR_KEY_HERE', // Replace with your Razorpay test key
+                    amount: 224800, // Amount in paise (₹2,248)
+                    currency: 'INR',
+                    name: 'Glow Naturals',
+                    description: 'Organic Beauty Products',
+                    image: 'https://example.com/logo.png',
+                    handler: function(response) {
+                        alert('Payment successful! Transaction ID: ' + response.razorpay_payment_id);
+                        window.location.href = 'index.html';
+                    },
+                    prefill: {
+                        name: document.getElementById('customerName').value,
+                        contact: document.getElementById('phoneNumber').value
+                    },
+                    theme: {
+                        color: '#4CAF50'
+                    }
+                };
+                
+                const rzp = new Razorpay(options);
+                rzp.open();
+            }
+        }
+    </script>
+</body>
+</html> 

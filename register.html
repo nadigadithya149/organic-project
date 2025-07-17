@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Glow Naturals</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('C:/Users/Adithya/Downloads/Gemini_Generated_Image_p730uap730uap730.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .register-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            margin: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #333;
+            margin: 0;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .header p {
+            color: #666;
+            margin: 10px 0 0 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        input.valid {
+            border-color: #4CAF50;
+        }
+
+        input.invalid {
+            border-color: #f44336;
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .password-toggle:hover {
+            color: #333;
+        }
+
+        .password-strength {
+            margin-top: 8px;
+            font-size: 12px;
+        }
+
+        .strength-bar {
+            height: 4px;
+            background: #e1e5e9;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+
+        .strength-fill {
+            height: 100%;
+            transition: all 0.3s ease;
+            width: 0%;
+        }
+
+        .strength-weak { background: #f44336; }
+        .strength-fair { background: #ff9800; }
+        .strength-good { background: #ffc107; }
+        .strength-strong { background: #4CAF50; }
+
+        .validation-message {
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .validation-message.valid {
+            color: #4CAF50;
+            display: block;
+        }
+
+        .validation-message.invalid {
+            color: #f44336;
+            display: block;
+        }
+
+        .otp-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 1px solid #e9ecef;
+        }
+
+        .otp-section h3 {
+            margin: 0 0 15px 0;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .otp-row {
+            display: flex;
+            gap: 10px;
+            align-items: end;
+        }
+
+        .otp-row .form-group {
+            flex: 1;
+        }
+
+        .otp-row button {
+            padding: 12px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+            white-space: nowrap;
+        }
+
+        .otp-row button:hover {
+            background: #0056b3;
+        }
+
+        .otp-row button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .register-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e1e5e9;
+        }
+
+        .divider span {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0 15px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .google-btn {
+            width: 100%;
+            padding: 12px;
+            background: white;
+            color: #333;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .google-btn:hover {
+            border-color: #4285f4;
+            box-shadow: 0 5px 15px rgba(66, 133, 244, 0.2);
+        }
+
+        .google-icon {
+            width: 18px;
+            height: 18px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="%23FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/><path fill="%23FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/><path fill="%234CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/><path fill="%231976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/></svg>') no-repeat center;
+            background-size: contain;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+            display: none;
+            border: 1px solid #ffcdd2;
+        }
+
+        .success-message {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+            display: none;
+            border: 1px solid #c8e6c9;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 600px) {
+            .register-container {
+                margin: 10px;
+                padding: 30px 20px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="header">
+            <h1>Create Account</h1>
+            <p>Join Glow Naturals and start your natural beauty journey</p>
+        </div>
+
+        <div class="error-message" id="errorMessage">
+            Please fix the errors below and try again.
+        </div>
+
+        <div class="success-message" id="successMessage">
+            Account created successfully! Redirecting...
+        </div>
+
+        <form id="registerForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name *</label>
+                    <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+                    <div class="validation-message" id="firstNameValidation"></div>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name *</label>
+                    <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required>
+                    <div class="validation-message" id="lastNameValidation"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-mail ID *</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                <div class="validation-message" id="emailValidation"></div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="country">Country *</label>
+                    <select id="country" name="country" required>
+                        <option value="">Select Country</option>
+                        <option value="US">United States</option>
+                        <option value="CA">Canada</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="AU">Australia</option>
+                        <option value="IN">India</option>
+                        <option value="DE">Germany</option>
+                        <option value="FR">France</option>
+                        <option value="JP">Japan</option>
+                        <option value="BR">Brazil</option>
+                        <option value="MX">Mexico</option>
+                    </select>
+                    <div class="validation-message" id="countryValidation"></div>
+                </div>
+                <div class="form-group">
+                    <label for="state">State *</label>
+                    <input type="text" id="state" name="state" placeholder="Enter your state" required>
+                    <div class="validation-message" id="stateValidation"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                <div class="validation-message" id="phoneValidation"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Create Password *</label>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <button type="button" class="password-toggle" onclick="togglePassword('password')">👁️</button>
+                </div>
+                <div class="password-strength">
+                    <div class="strength-bar">
+                        <div class="strength-fill" id="strengthFill"></div>
+                    </div>
+                    <div id="strengthText">Password strength</div>
+                </div>
+                <div class="validation-message" id="passwordValidation"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password *</label>
+                <div class="password-container">
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                    <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">👁️</button>
+                </div>
+                <div class="validation-message" id="confirmPasswordValidation"></div>
+            </div>
+
+            <div class="otp-section" id="otpSection" style="display: none;">
+                <h3>📱 Verification</h3>
+                <div class="otp-row">
+                    <div class="form-group">
+                        <label for="phoneOtp">Phone OTP</label>
+                        <input type="text" id="phoneOtp" name="phoneOtp" placeholder="Enter 6-digit OTP" maxlength="6" required>
+                    </div>
+                    <button type="button" id="phoneOtpBtn" onclick="sendPhoneOtp()">Send OTP</button>
+                </div>
+                <div class="otp-row">
+                    <div class="form-group">
+                        <label for="emailOtp">Email OTP</label>
+                        <input type="text" id="emailOtp" name="emailOtp" placeholder="Enter 6-digit OTP" maxlength="6" required>
+                    </div>
+                    <button type="button" id="emailOtpBtn" onclick="sendEmailOtp()">Send OTP</button>
+                </div>
+            </div>
+
+            <button type="submit" class="register-btn" id="registerBtn">
+                <span class="btn-text">Create Account</span>
+            </button>
+
+            <div class="divider">
+                <span>OR</span>
+            </div>
+
+            <button type="button" class="google-btn" onclick="signInWithGoogle()">
+                <div class="google-icon"></div>
+                Create Account with Google
+            </button>
+        </form>
+
+        <div class="back-link">
+            <a href="index.html">← Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        let currentOtp = '';
+        let phoneOtpSent = false;
+        let emailOtpSent = false;
+        let otpCountdown = 0;
+
+        // API Configuration
+        const API_BASE_URL = 'http://localhost:5000/api';
+
+        // Check if user is already logged in
+        window.addEventListener('load', function() {
+            const token = localStorage.getItem('token');
+            if (token) {
+                // Verify token with backend
+                verifyToken(token);
+            }
+        });
+
+        // Verify JWT token with backend
+        async function verifyToken(token) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/me`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    showSuccess('You are already logged in! Redirecting...');
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 2000);
+                } else {
+                    // Token is invalid, remove it
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('userInfo');
+                }
+            } catch (error) {
+                console.error('Token verification error:', error);
+                localStorage.removeItem('token');
+                localStorage.removeItem('userInfo');
+            }
+        }
+
+        function generateOTP() {
+            return Math.floor(100000 + Math.random() * 900000).toString();
+        }
+
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function validatePhone(phone) {
+            const phoneRegex = /^\d{10,15}$/;
+            return phoneRegex.test(phone.replace(/\D/g, ''));
+        }
+
+        function validateName(name) {
+            return name.length >= 2 && /^[a-zA-Z\s]+$/.test(name);
+        }
+
+        function checkPasswordStrength(password) {
+            let strength = 0;
+            let feedback = [];
+
+            if (password.length >= 8) strength += 1;
+            else feedback.push('At least 8 characters');
+
+            if (/[a-z]/.test(password)) strength += 1;
+            else feedback.push('Lowercase letter');
+
+            if (/[A-Z]/.test(password)) strength += 1;
+            else feedback.push('Uppercase letter');
+
+            if (/[0-9]/.test(password)) strength += 1;
+            else feedback.push('Number');
+
+            if (/[^A-Za-z0-9]/.test(password)) strength += 1;
+            else feedback.push('Special character');
+
+            return { strength, feedback };
+        }
+
+        function updatePasswordStrength(password) {
+            const strengthFill = document.getElementById('strengthFill');
+            const strengthText = document.getElementById('strengthText');
+            const { strength, feedback } = checkPasswordStrength(password);
+
+            strengthFill.className = 'strength-fill';
+            strengthFill.style.width = (strength * 20) + '%';
+
+            if (strength <= 1) {
+                strengthFill.classList.add('strength-weak');
+                strengthText.textContent = 'Weak';
+            } else if (strength <= 2) {
+                strengthFill.classList.add('strength-fair');
+                strengthText.textContent = 'Fair';
+            } else if (strength <= 3) {
+                strengthFill.classList.add('strength-good');
+                strengthText.textContent = 'Good';
+            } else {
+                strengthFill.classList.add('strength-strong');
+                strengthText.textContent = 'Strong';
+            }
+        }
+
+        function togglePassword(fieldId) {
+            const passwordInput = document.getElementById(fieldId);
+            const toggleBtn = passwordInput.parentElement.querySelector('.password-toggle');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleBtn.textContent = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                toggleBtn.textContent = '👁️';
+            }
+        }
+
+        function showValidation(fieldId, isValid, message) {
+            const field = document.getElementById(fieldId);
+            const validation = document.getElementById(fieldId + 'Validation');
+            
+            field.classList.remove('valid', 'invalid');
+            validation.classList.remove('valid', 'invalid');
+            
+            if (message) {
+                field.classList.add(isValid ? 'valid' : 'invalid');
+                validation.classList.add(isValid ? 'valid' : 'invalid');
+                validation.textContent = message;
+            }
+            
+            return isValid;
+        }
+
+        function checkEmailAndPhone() {
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const otpSection = document.getElementById('otpSection');
+            
+            if (email && phone && validateEmail(email) && validatePhone(phone)) {
+                otpSection.style.display = 'block';
+                otpSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                otpSection.style.display = 'none';
+            }
+        }
+
+        function startOtpCountdown(buttonId) {
+            const button = document.getElementById(buttonId);
+            let countdown = 60;
+            button.disabled = true;
+            button.textContent = `Resend in ${countdown}s`;
+            
+            const timer = setInterval(() => {
+                countdown--;
+                button.textContent = `Resend in ${countdown}s`;
+                
+                if (countdown <= 0) {
+                    clearInterval(timer);
+                    button.disabled = false;
+                    button.textContent = buttonId === 'phoneOtpBtn' ? 'Send OTP' : 'Send OTP';
+                }
+            }, 1000);
+        }
+
+        function sendPhoneOtp() {
+            const phone = document.getElementById('phone').value;
+            if (!phone) {
+                showError('Please enter your phone number first');
+                return;
+            }
+            if (!validatePhone(phone)) {
+                showError('Please enter a valid phone number');
+                return;
+            }
+            
+            currentOtp = generateOTP();
+            phoneOtpSent = true;
+            startOtpCountdown('phoneOtpBtn');
+            showSuccess(`OTP sent to ${phone}: ${currentOtp}`);
+        }
+
+        function sendEmailOtp() {
+            const email = document.getElementById('email').value;
+            if (!email) {
+                showError('Please enter your email first');
+                return;
+            }
+            if (!validateEmail(email)) {
+                showError('Please enter a valid email address');
+                return;
+            }
+            
+            currentOtp = generateOTP();
+            emailOtpSent = true;
+            startOtpCountdown('emailOtpBtn');
+            showSuccess(`OTP sent to ${email}: ${currentOtp}`);
+        }
+
+        function signInWithGoogle() {
+            // Redirect to Google OAuth endpoint
+            window.location.href = `${API_BASE_URL}/auth/google`;
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            const successDiv = document.getElementById('successMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            successDiv.style.display = 'none';
+        }
+
+        function showSuccess(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+            errorDiv.style.display = 'none';
+        }
+
+        function hideMessages() {
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        // Real-time validation
+        document.getElementById('firstName').addEventListener('input', function() {
+            const isValid = validateName(this.value);
+            showValidation('firstName', isValid, isValid ? '✓ Valid name' : 'Name must be at least 2 characters and contain only letters');
+        });
+
+        document.getElementById('lastName').addEventListener('input', function() {
+            const isValid = validateName(this.value);
+            showValidation('lastName', isValid, isValid ? '✓ Valid name' : 'Name must be at least 2 characters and contain only letters');
+        });
+
+        document.getElementById('email').addEventListener('input', function() {
+            const isValid = validateEmail(this.value);
+            showValidation('email', isValid, isValid ? '✓ Valid email' : 'Please enter a valid email address');
+            checkEmailAndPhone();
+        });
+
+        document.getElementById('phone').addEventListener('input', function() {
+            const isValid = validatePhone(this.value);
+            showValidation('phone', isValid, isValid ? '✓ Valid phone number' : 'Please enter a valid phone number (10-15 digits)');
+            checkEmailAndPhone();
+        });
+
+        document.getElementById('password').addEventListener('input', function() {
+            updatePasswordStrength(this.value);
+            const { strength } = checkPasswordStrength(this.value);
+            const isValid = strength >= 3;
+            showValidation('password', isValid, isValid ? '✓ Strong password' : 'Password must be at least 8 characters with uppercase, lowercase, number, and special character');
+        });
+
+        document.getElementById('confirmPassword').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const isValid = this.value === password && password.length > 0;
+            showValidation('confirmPassword', isValid, isValid ? '✓ Passwords match' : 'Passwords do not match');
+        });
+
+        document.getElementById('country').addEventListener('change', function() {
+            const isValid = this.value !== '';
+            showValidation('country', isValid, isValid ? '✓ Country selected' : 'Please select a country');
+        });
+
+        document.getElementById('state').addEventListener('input', function() {
+            const isValid = this.value.length >= 2;
+            showValidation('state', isValid, isValid ? '✓ Valid state' : 'State must be at least 2 characters');
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const country = document.getElementById('country').value;
+            const state = document.getElementById('state').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const phoneOtp = document.getElementById('phoneOtp').value;
+            const emailOtp = document.getElementById('emailOtp').value;
+            
+            const registerBtn = document.getElementById('registerBtn');
+            const btnText = registerBtn.querySelector('.btn-text');
+            
+            // Disable button during processing
+            registerBtn.disabled = true;
+            btnText.innerHTML = '<span class="loading-spinner"></span>Creating Account...';
+            
+            // Hide previous messages
+            hideMessages();
+            
+            // Validate all fields
+            let isValid = true;
+            
+            if (!validateName(firstName)) {
+                showValidation('firstName', false, 'Name must be at least 2 characters and contain only letters');
+                isValid = false;
+            }
+            
+            if (!validateName(lastName)) {
+                showValidation('lastName', false, 'Name must be at least 2 characters and contain only letters');
+                isValid = false;
+            }
+            
+            if (!validateEmail(email)) {
+                showValidation('email', false, 'Please enter a valid email address');
+                isValid = false;
+            }
+            
+            if (!country) {
+                showValidation('country', false, 'Please select a country');
+                isValid = false;
+            }
+            
+            if (state.length < 2) {
+                showValidation('state', false, 'State must be at least 2 characters');
+                isValid = false;
+            }
+            
+            if (!validatePhone(phone)) {
+                showValidation('phone', false, 'Please enter a valid phone number');
+                isValid = false;
+            }
+            
+            const { strength } = checkPasswordStrength(password);
+            if (strength < 3) {
+                showValidation('password', false, 'Password must be at least 8 characters with uppercase, lowercase, number, and special character');
+                isValid = false;
+            }
+            
+            if (password !== confirmPassword) {
+                showValidation('confirmPassword', false, 'Passwords do not match');
+                isValid = false;
+            }
+            
+            if (!isValid) {
+                showError('Please fix the validation errors above');
+                registerBtn.disabled = false;
+                btnText.textContent = 'Create Account';
+                return;
+            }
+            
+            // Check OTP if required
+            if (phoneOtp || emailOtp) {
+                if (!phoneOtpSent || !emailOtpSent) {
+                    showError('Please send both OTPs first');
+                    registerBtn.disabled = false;
+                    btnText.textContent = 'Create Account';
+                    return;
+                }
+                
+                if (phoneOtp !== currentOtp || emailOtp !== currentOtp) {
+                    showError('Invalid OTP. Please enter the correct OTP');
+                    registerBtn.disabled = false;
+                    btnText.textContent = 'Create Account';
+                    return;
+                }
+            }
+            
+            // Call backend API for registration
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        firstName,
+                        lastName,
+                        email,
+                        phone,
+                        password,
+                        country,
+                        state
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Save token and user info
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('userInfo', JSON.stringify(data.user));
+                    
+                    showSuccess('Account created successfully! Redirecting...');
+                    
+                    // Redirect to home page after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 2000);
+                } else {
+                    if (data.errors) {
+                        // Validation errors
+                        const errorMessages = data.errors.map(error => error.msg).join(', ');
+                        showError(errorMessages);
+                    } else {
+                        showError(data.message || 'Registration failed. Please try again.');
+                    }
+                    registerBtn.disabled = false;
+                    btnText.textContent = 'Create Account';
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                showError('Network error. Please check your connection and try again.');
+                registerBtn.disabled = false;
+                btnText.textContent = 'Create Account';
+            }
+        });
+
+        // Auto-fill email OTP when phone OTP is entered
+        document.getElementById('phoneOtp').addEventListener('input', function() {
+            document.getElementById('emailOtp').value = this.value;
+        });
+
+        // Auto-fill phone OTP when email OTP is entered
+        document.getElementById('emailOtp').addEventListener('input', function() {
+            document.getElementById('phoneOtp').value = this.value;
+        });
+
+        // Clear messages when user starts typing
+        const inputs = document.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            input.addEventListener('input', hideMessages);
+        });
+    </script>
+</body>
+</html>  

@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glow Naturals - Products</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;600;700&family=Dancing+Script:wght@400;700&family=Cinzel:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: inherit;
+            filter: blur(98px);
+            z-index: -1;
+        }
+        
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.3) 100%);
+            z-index: -1;
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 25px;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        
+        .back-btn:hover {
+            background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+            border-color: rgba(255,255,255,0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+        }
+        
+        .cart-btn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #E8F4F8 0%, #B8D4DA 100%);
+            color: #2C3E50;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(232,244,248,0.3);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .cart-btn:hover {
+            background: linear-gradient(135deg, #F8FBFC 0%, #D4E6EC 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(232,244,248,0.5);
+        }
+        
+        .cart-icon {
+            font-size: 18px;
+            position: relative;
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            border: 2px solid rgba(255,255,255,0.9);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        .cart-badge.hidden {
+            display: none;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            }
+        }
+        
+        .content {
+            position: relative;
+            z-index: 10;
+            padding: 80px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            color: white;
+        }
+        
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 72px;
+            font-weight: 700;
+            color: #E8F4F8;
+            text-align: center;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+            letter-spacing: 2px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        /* Banner Slider */
+        .banner-slider {
+            position: relative;
+            width: 100%;
+            max-width: 1100px;
+            height: 420px;
+            margin: 0 auto 60px auto;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.22);
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .banner-slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0; left: 0;
+            transition: opacity 0.7s cubic-bezier(.4,2,.6,1);
+        }
+        
+        .banner-slide.active {
+            display: block;
+            opacity: 1;
+            z-index: 2;
+        }
+        
+        .banner-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 24px;
+        }
+        
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.35);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            font-size: 28px;
+            cursor: pointer;
+            z-index: 3;
+            transition: background 0.2s;
+        }
+        
+        .slider-arrow.left { left: 18px; }
+        .slider-arrow.right { right: 18px; }
+        .slider-arrow:hover { background: rgba(76,175,80,0.7); }
+        
+        .slider-dots {
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 4;
+        }
+        
+        .slider-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.7);
+            border: 2px solid #4caf50;
+            cursor: pointer;
+            transition: background 0.2s, border 0.2s;
+        }
+        
+        .slider-dot.active {
+            background: #4caf50;
+            border: 2px solid #fff;
+        }
+        
+        /* Products Grid */
+        .products-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            font-weight: 600;
+            color: #E8F4F8;
+            text-align: center;
+            margin: 60px 0 40px 0;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .product-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeInUp 0.8s ease-out both;
+        }
+        
+        .product-card:nth-child(1) { animation-delay: 0.1s; }
+        .product-card:nth-child(2) { animation-delay: 0.2s; }
+        .product-card:nth-child(3) { animation-delay: 0.3s; }
+        .product-card:nth-child(4) { animation-delay: 0.4s; }
+        .product-card:nth-child(5) { animation-delay: 0.5s; }
+        .product-card:nth-child(6) { animation-delay: 0.6s; }
+        .product-card:nth-child(7) { animation-delay: 0.7s; }
+        .product-card:nth-child(8) { animation-delay: 0.8s; }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            border-color: rgba(255,255,255,0.4);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 250px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: #E8F4F8;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        .product-description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #F8F8FF;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .product-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .stars {
+            display: flex;
+            gap: 2px;
+        }
+        
+        .star {
+            color: #FFD700;
+            font-size: 18px;
+            text-shadow: 0 0 5px rgba(255,215,0,0.5);
+        }
+        
+        .rating-text {
+            margin-left: 8px;
+            color: #F8F8FF;
+            font-size: 14px;
+        }
+        
+        .product-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: #E8F4F8;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        .buy-btn {
+            background: linear-gradient(135deg, #E8F4F8 0%, #B8D4DA 100%);
+            color: #2C3E50;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            box-shadow: 0 5px 15px rgba(232,244,248,0.3);
+        }
+        
+        .buy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(232,244,248,0.5);
+            background: linear-gradient(135deg, #F8FBFC 0%, #D4E6EC 100%);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 48px;
+            }
+            .products-title {
+                font-size: 36px;
+            }
+            .banner-slider {
+                height: 220px;
+            }
+            .banner-slide img {
+                border-radius: 12px;
+            }
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .content {
+                padding: 60px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a class="back-btn" href="index.html">← Back</a>
+    <a class="cart-btn" href="cart.html"><span class="cart-icon">🛒</span> Cart <span class="cart-badge hidden" id="cartBadge">0</span></a>
+    <div class="content">
+        <h1 class="page-title">Our Products</h1>
+        <!-- Banner Slider -->
+        <div class="banner-slider" id="bannerSlider">
+            <div class="banner-slide active">
+                <img src="C:/Users/Adithya/OneDrive/Documents/glow naturals/materials/generate a landscape.png" alt="Banner 1">
+            </div>
+            <div class="banner-slide">
+                <img src="C:/Users/Adithya/OneDrive/Documents/glow naturals/materials/Gemini_Generated_Image_fvru3sfvru3sfvru.png" alt="Banner 2">
+            </div>
+            <div class="banner-slide">
+                <img src="C:/Users/Adithya/OneDrive/Documents/glow naturals/materials/Gemini_Generated_Image_uoioaquoioaquoio.png" alt="Banner 3">
+            </div>
+            <div class="banner-slide">
+                <img src="C:/Users/Adithya/OneDrive/Documents/glow naturals/materials/Gemini_Generated_Image_vfn2xvfn2xvfn2xv.png" alt="Banner 4">
+            </div>
+            <button class="slider-arrow left" id="prevSlide">&#10094;</button>
+            <button class="slider-arrow right" id="nextSlide">&#10095;</button>
+            <div class="slider-dots" id="sliderDots"></div>
+        </div>
+        
+        <h2 class="products-title">GlowNaturals Skincare Range</h2>
+        
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="C:\Users\Adithya\OneDrive\Documents\glow naturals\products\1mg4.png" alt="Herbal Face Wash">
+                </div>
+                <h3 class="product-name">🧼 Herbal Face Wash (100ml)</h3>
+                <p class="product-description">Infused with neem, tulsi, and aloe vera — this gentle cleanser removes dirt and excess oil while keeping your skin hydrated and glowing.</p>
+                <div class="product-rating">
+                    <div class="stars">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">☆</span>
+                    </div>
+                    <span class="rating-text">4.0/5</span>
+                </div>
+                <div class="product-price">₹299</div>
+                <button class="buy-btn" onclick="addToCart('🧼 Herbal Face Wash (100ml)', 'Infused with neem, tulsi, and aloe vera — this gentle cleanser removes dirt and excess oil while keeping your skin hydrated and glowing.', 299, 'C:\\Users\\Adithya\\OneDrive\\Documents\\glow naturals\\products\\1mg4.png')">Add to Cart</button>
+            </div>
+            
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="C:\Users\Adithya\OneDrive\Documents\glow naturals\products\img1.png" alt="Ubtan Face & Body Scrub">
+                </div>
+                <h3 class="product-name">🧽 Ubtan Face & Body Scrub (100g)</h3>
+                <p class="product-description">A traditional Ayurvedic blend of turmeric, sandalwood, and gram flour to exfoliate dead skin cells and reveal radiant, fresh skin.</p>
+                <div class="product-rating">
+                    <div class="stars">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">☆</span>
+                    </div>
+                    <span class="rating-text">4.0/5</span>
+                </div>
+                <div class="product-price">₹399</div>
+                <button class="buy-btn" onclick="addToCart('🧽 Ubtan Face & Body Scrub (100g)', 'A traditional Ayurvedic blend of turmeric, sandalwood, and gram flour to exfoliate dead skin cells and reveal radiant, fresh skin.', 399, 'C:\\Users\\Adithya\\OneDrive\\Documents\\glow naturals\\products\\img1.png')">Add to Cart</button>
+            </div>
+            
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="C:\Users\Adithya\OneDrive\Documents\glow naturals\products\img2.png" alt="Rose & Aloe Hydrating Toner">
+                </div>
+                <h3 class="product-name">💧 Rose & Aloe Hydrating Toner (100ml)</h3>
+                <p class="product-description">A refreshing facial mist enriched with rose water and aloe vera to tone, soothe, and prep your skin naturally.</p>
+                <div class="product-rating">
+                    <div class="stars">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">☆</span>
+                    </div>
+                    <span class="rating-text">4.0/5</span>
+                </div>
+                <div class="product-price">₹249</div>
+                <button class="buy-btn" onclick="addToCart('💧 Rose & Aloe Hydrating Toner (100ml)', 'A refreshing facial mist enriched with rose water and aloe vera to tone, soothe, and prep your skin naturally.', 249, 'C:\\Users\\Adithya\\OneDrive\\Documents\\glow naturals\\products\\img2.png')">Add to Cart</button>
+            </div>
+            
+            <!-- Product 4 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="C:\Users\Adithya\OneDrive\Documents\glow naturals\products\img3.png" alt="Shea Butter & Almond Body Lotion">
+                </div>
+                <h3 class="product-name">🧴 Shea Butter & Almond Body Lotion (200ml)</h3>
+                <p class="product-description">Deeply nourishing and non-greasy — made with shea butter, almond oil, and vitamin E for long-lasting softness.</p>
+                <div class="product-rating">
+                    <div class="stars">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">☆</span>
+                    </div>
+                    <span class="rating-text">4.0/5</span>
+                </div>
+                <div class="product-price">₹499</div>
+                <button class="buy-btn" onclick="addToCart('🧴 Shea Butter & Almond Body Lotion (200ml)', 'Deeply nourishing and non-greasy — made with shea butter, almond oil, and vitamin E for long-lasting softness.', 499, 'C:\\Users\\Adithya\\OneDrive\\Documents\\glow naturals\\products\\img3.png')">Add to Cart</button>
+            </div>
+            
+            <!-- Product 5 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="C:\Users\Adithya\OneDrive\Documents\glow naturals\products\img5.png" alt="Charcoal Detox Soap Bar">
+                </div>
+                <h3 class="product-name">🧼 Charcoal Detox Soap Bar (100g)</h3>
+                <p class="product-description">A handmade cold-process soap with activated charcoal, tea tree oil, and bentonite clay to detoxify and refresh oily/acne-prone skin.</p>
+                <div class="product-rating">
+                    <div class="stars">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">☆</span>
+                    </div>
+                    <span class="rating-text">4.0/5</span>
+                </div>
+                <div class="product-price">₹199</div>
+                <button class="buy-btn" onclick="addToCart('🧼 Charcoal Detox Soap Bar (100g)', 'A handmade cold-process soap with activated charcoal, tea tree oil, and bentonite clay to detoxify and refresh oily/acne-prone skin.', 199, 'C:\\Users\\Adithya\\OneDrive\\Documents\\glow naturals\\products\\img5.png')">Add to Cart</button>
+            </div>
+            
+            <!-- Product 6 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="C:\Users\Adithya\OneDrive\Documents\glow naturals\products\img6.png" alt="Turmeric Honey Glow Pack">
+                </div>
+                <h3 class="product-name">🍯 Turmeric Honey Glow Pack (50g)</h3>
+                <p class="product-description">Brightens skin tone, fades blemishes, and provides a natural glow using wild honey, turmeric, and sandalwood powder.</p>
+                <div class="product-rating">
+                    <div class="stars">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">☆</span>
+                    </div>
+                    <span class="rating-text">4.0/5</span>
+                </div>
+                <div class="product-price">₹349</div>
+                <button class="buy-btn" onclick="addToCart('🍯 Turmeric Honey Glow Pack (50g)', 'Brightens skin tone, fades blemishes, and provides a natural glow using wild honey, turmeric, and sandalwood powder.', 349, 'C:\\Users\\Adithya\\OneDrive\\Documents\\glow naturals\\products\\img6.png')">Add to Cart</button>
+            </div>
+            
+            <!-- Product 7 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="C:\Users\Adithya\OneDrive\Documents\glow naturals\products\img7.png" alt="Herbal Lip Balm">
+                </div>
+                <h3 class="product-name">👄 Herbal Lip Balm (10g)</h3>
+                <p class="product-description">A soothing blend of beeswax, coconut oil, and rose extract to heal and hydrate dry, chapped lips.</p>
+                <div class="product-rating">
+                    <div class="stars">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">☆</span>
+                    </div>
+                    <span class="rating-text">4.0/5</span>
+                </div>
+                <div class="product-price">₹149</div>
+                <button class="buy-btn" onclick="addToCart('👄 Herbal Lip Balm (10g)', 'A soothing blend of beeswax, coconut oil, and rose extract to heal and hydrate dry, chapped lips.', 149, 'C:\\Users\\Adithya\\OneDrive\\Documents\\glow naturals\\products\\img7.png')">Add to Cart</button>
+            </div>
+            
+            <!-- Product 8 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="C:\Users\Adithya\OneDrive\Documents\glow naturals\products\img8.png" alt="Natural Sun Shield Cream">
+                </div>
+                <h3 class="product-name">☀️ Natural Sun Shield Cream (50g)</h3>
+                <p class="product-description">Non-toxic sun protection made with cucumber, zinc oxide, and licorice root — safe for daily use and all skin types.</p>
+                <div class="product-rating">
+                    <div class="stars">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">☆</span>
+                    </div>
+                    <span class="rating-text">4.0/5</span>
+                </div>
+                <div class="product-price">₹399</div>
+                <button class="buy-btn" onclick="addToCart('☀️ Natural Sun Shield Cream (50g)', 'Non-toxic sun protection made with cucumber, zinc oxide, and licorice root — safe for daily use and all skin types.', 399, 'C:\\Users\\Adithya\\OneDrive\\Documents\\glow naturals\\products\\img8.png')">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to update cart badge
+        function updateCartBadge() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartBadge = document.getElementById('cartBadge');
+            
+            // Calculate total items in cart
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            
+            if (totalItems > 0) {
+                cartBadge.textContent = totalItems;
+                cartBadge.classList.remove('hidden');
+            } else {
+                cartBadge.classList.add('hidden');
+            }
+        }
+        
+        function addToCart(name, description, price, image) {
+            // Get existing cart from localStorage
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Check if item already exists in cart
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                // If item exists, increase quantity
+                existingItem.quantity += 1;
+            } else {
+                // If item doesn't exist, add new item
+                cart.push({
+                    name: name,
+                    description: description,
+                    price: price,
+                    image: image,
+                    quantity: 1
+                });
+            }
+            
+            // Save cart back to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Update cart badge
+            updateCartBadge();
+            
+            // Show success message
+            alert('Item added to cart successfully!');
+        }
+        
+        // Update cart badge when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartBadge();
+        });
+
+        // Banner Slider Logic
+        const slides = document.querySelectorAll('.banner-slide');
+        const prevBtn = document.getElementById('prevSlide');
+        const nextBtn = document.getElementById('nextSlide');
+        const dotsContainer = document.getElementById('sliderDots');
+        let currentSlide = 0;
+        let slideInterval;
+
+        function showSlide(idx) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === idx);
+            });
+            document.querySelectorAll('.slider-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === idx);
+            });
+            currentSlide = idx;
+        }
+        function nextSlideFn() {
+            showSlide((currentSlide + 1) % slides.length);
+        }
+        function prevSlideFn() {
+            showSlide((currentSlide - 1 + slides.length) % slides.length);
+        }
+        function startAutoSlide() {
+            slideInterval = setInterval(nextSlideFn, 3500);
+        }
+        function stopAutoSlide() {
+            clearInterval(slideInterval);
+        }
+        // Dots
+        function createDots() {
+            dotsContainer.innerHTML = '';
+            slides.forEach((_, i) => {
+                const dot = document.createElement('span');
+                dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+                dot.onclick = () => { showSlide(i); stopAutoSlide(); startAutoSlide(); };
+                dotsContainer.appendChild(dot);
+            });
+        }
+        createDots();
+        showSlide(0);
+        startAutoSlide();
+        nextBtn.onclick = () => { nextSlideFn(); stopAutoSlide(); startAutoSlide(); };
+        prevBtn.onclick = () => { prevSlideFn(); stopAutoSlide(); startAutoSlide(); };
+        // Pause on hover
+        document.getElementById('bannerSlider').addEventListener('mouseenter', stopAutoSlide);
+        document.getElementById('bannerSlider').addEventListener('mouseleave', startAutoSlide);
+    </script>
+</body>
+</html> 
